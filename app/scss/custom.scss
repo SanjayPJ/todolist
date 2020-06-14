@@ -1,0 +1,9 @@
+// Custom.scss
+
+$font-size-base: .8rem;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.container-min{
+	max-width: 600px;
+}

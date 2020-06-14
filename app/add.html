@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="scss/custom.css">
+    <title>Add todo</title>
+</head>
+
+<body>
+    <div id="app" class="mx-auto" style="width: 500px">
+        <form @submit.prevent="todoSubmit" class="mt-3">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Enter your todo</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const electron = require('electron');
+        const ipcRenderer = electron.ipcRenderer;
+
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                todoSubmit: (e) => {
+                    let todo = e.target[0].value;
+                    ipcRenderer.send('todo:submit', todo);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="scss/custom.css">
+    <title>Todo list</title>
+</head>
+
+<body>
+    <div class="container-min mx-auto mt-3" id="app">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" v-for="(todo, index) in todos">{{ todo }}</li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+    const electron = require('electron');
+    const ipcRenderer = electron.ipcRenderer;
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            todos: [
+                "Fetch the code",
+                "Go to the gym at 5",
+                "Eat healthy"
+            ],
+        },
+        created() {
+            ipcRenderer.on('todo:submit', (e, todo) => {
+                this.todos.unshift(todo);
+            })            
+
+            ipcRenderer.on('todo:clear', (e) => {
+                this.todos = [];
+            })
+        }
+    })
+    </script>
+</body>
+
+</html>
